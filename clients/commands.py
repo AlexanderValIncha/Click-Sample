@@ -1,3 +1,15 @@
+##Interfaz que nos permite definir como interactuar con los servicios
+##Corresponde simplemente al front end que permite hacer la llamada 
+'''Utilizamos Click como framework para la construcción de un comando de CLI en terminal.
+Para ello es importante tener en cuenta que para una app tiene que dividirse en los siguientes componentes: 
+    i)   Interfaz          : Cómo interactua nuestro software con el exterior.
+        i.1  App CLI          : Commandos como es nuestro caso 
+        ii.2 App API servidor : Endpoints
+    ii)  Lógica de Negocio : Lógica específica de nuestro software, definida como servicios 
+    iii) Abstracciones     : Objetos sobre los que camos a interactuar, en nustro caso el Cliente     
+'''
+
+
 import click
 
 from clients.services import ClientService
@@ -16,9 +28,9 @@ def clients():
 
 #Definimos un comando de client y pasamos contexto 
 @clients.command()
-@click.option('-n','--name', #Declaramos inputs
-              type=str,
-              prompt=True,
+@click.option('-n','--name',          #Ayuda a pedirle inputs al usuario a través del usuario o a través del comando pv en CLI
+              type=str,               #Tipo string
+              prompt=True,            #Si no nos dan el nombre vía patron abreviado en el comando se lo pedimos al usuario via input
               help='The client name')
 @click.option('-n','--company',
               type=str,
@@ -35,10 +47,10 @@ def clients():
 @click.pass_context
 def create(ctx,name,company,email,position):
     """Creates a new client"""
-    client = Client(name, company, email, position)
-    client_service = ClientService(ctx.obj['clients_table'])
+    client = Client(name, company, email, position)             #Inicializamos al cliente 
+    client_service = ClientService(ctx.obj['clients_table'])    #Inicializamos el servcio cogiendo del contexto el nombre de la tabla (revisar nomenclatura de Click y el decorador pass_context)
     
-    client_service.create_client(client)
+    client_service.create_client(client)                        #Pasamos la referencia de nuestro cliente concreto 
 
 
 @clients.command()

@@ -1,4 +1,5 @@
 # pv.py
+# Necesitamos pasarle el nombre del archivo que vamos a utilizar para poder guardar a todos nuestros clientes
 
 import sys
 import os
@@ -6,11 +7,11 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import click
-from clients import commands as clients_commands
+from clients import commands as clients_commands  #Hacemos la llamada a la interfaz 
 
 #print(sys.path)
 
-CLIENTS_TABLE = '.clients.csv'
+CLIENTS_TABLE = '.clients.csv'  # Variable global que se añadirá al contexto 
 
 @click.group()        #Define nuestro punto de entrada a través de click
 @click.pass_context   #Nos va a dar un objeto contexto 
