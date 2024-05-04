@@ -10,9 +10,10 @@ class ClientService:
         
     def create_client(self,client):
         with open(self.table_name, mode='a') as f: 
-            writer = csv.DictWriter(f, fieldnames=Client.schema()) 
+            writer = csv.DictWriter(f, fieldnames=Client.schema()) #Hemos generado en el modelo un metodo estático schema() como shortcut para el writer en este caso 
             writer.writerow(client.to_dict()) 
-            #Escribimos una nueva fila a nuestra estructura u objeto, necesitamos para DictWriter que nuestra entrada sea un diccionario .to_dict()
+            #Escribimos una nueva fila a nuestra estructura u objeto, necesitamos para DictWriter que nuestra entrada sea un diccionario, 
+            #por ello el cliente que recibimos como parametro lo convertimos a diccionadio a través de .to_dict()
             
     
     def list_clients(self):
